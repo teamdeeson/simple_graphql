@@ -1,0 +1,26 @@
+services:
+  plugin.manager.simple_graphql.schema:
+    class: Drupal\simple_graphql\Plugin\SchemaPluginManager
+    parent: default_plugin_manager
+
+  simple_graphql.router:
+    class: Drupal\simple_graphql\Router
+    arguments:
+      - "@plugin.manager.simple_graphql.schema"
+
+  simple_graphql.plugin.drupalSchemaDecorator:
+    class: Drupal\simple_graphql\Plugin\DrupalSchemaDecorator
+    arguments:
+      - "@cache.default"
+
+  simple_graphql.graphql.fieldResolver.drupalEntityFieldResolver:
+    class: Drupal\simple_graphql\Graphql\FieldResolver\DrupalEntityFieldResolver
+
+  simple_graphql.graphql.fieldResolver.textFieldResolver:
+    class: Drupal\simple_graphql\Graphql\FieldResolver\TextFieldResolver
+
+  simple_graphql.graphql.fieldResolver.nodeFieldResolver:
+    class: Drupal\simple_graphql\Graphql\FieldResolver\NodeFieldResolver
+
+  simple_graphql.graphql.fieldResolver.entityReferenceFieldResolver:
+    class: Drupal\simple_graphql\Graphql\FieldResolver\EntityReferenceFieldResolver
