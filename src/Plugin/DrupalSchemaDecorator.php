@@ -16,7 +16,7 @@ use GraphQL\Server\ServerConfig;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class DrupalSchemaDecorator {
-  protected CacheBackendInterface $cache;
+  protected $cache;
 
   public function __construct(CacheBackendInterface $cache) {
     $this->cache = $cache;
@@ -86,7 +86,7 @@ class DrupalSchemaDecorator {
 
     $entityTypeMap = [];
 
-    if ($entityTypeMapCache->data) {
+    if ($entityTypeMapCache->data && FALSE) {
       $entityTypeMap = $entityTypeMapCache->data;
     } else {
       $typeMap = $schema->getTypeMap();

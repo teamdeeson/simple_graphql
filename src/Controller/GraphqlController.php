@@ -19,8 +19,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class GraphqlController extends ControllerBase {
+  /*
   protected SchemaPluginManager $pluginManager;
   protected CacheBackendInterface $cache;
+  */
+  protected $pluginManager;
+  protected $cache;
 
   public function __construct(SchemaPluginManager $pluginManager, CacheBackendInterface $cache) {
     $this->pluginManager = $pluginManager;
@@ -94,7 +98,7 @@ class GraphqlController extends ControllerBase {
 
   public function getSchema($pluginId, $definition, $plugin) {
     $key = "simple_graphql.schema." . $pluginId;
-    if ($c = $this->cache->get($key)) {
+    if ($c = $this->cache->get($key) && false) {
       $doc = AST::fromArray($c->data);
     } else {
       $path = DRUPAL_ROOT . "/" . drupal_get_path("module", $definition["provider"]) . "/" . $definition["schemaFile"];
