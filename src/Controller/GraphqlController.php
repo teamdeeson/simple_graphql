@@ -72,7 +72,7 @@ class GraphqlController extends ControllerBase {
     if (stripos($request->getHeaderLine("content-type"), "application/json") !== false) {
       $input = Json::decode($request->getBody()->getContents());
       // $this->persistQueries($input);
-      if (\Drupal::state()->get('debug') === 'verbose') {
+      if (\Drupal::state()->get('simple_graphql_debug') === 'verbose') {
         \Drupal::logger('simple_graphql')
           ->info('<pre>' . print_r($input, 1) . '</pre>');
       }
