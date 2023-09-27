@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\TypedData\TypedDataInterface;
 use Drupal\text\Plugin\Field\FieldType\TextItemBase;
 use Drupal\text\Plugin\Field\FieldType\TextWithSummaryItem;
+use Drupal\Core\Render\RendererInterface;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class TextFieldResolver extends FieldResolverBase {
@@ -26,7 +27,7 @@ class TextFieldResolver extends FieldResolverBase {
         "value" => $item->value,
         "format" => $item->format,
         "processed" => $item->processed,
-        "summary_computed" => (string) render($viewVar),
+        "summary_computed" => (string) RendererInterface::render($viewVar),
       ];
     }
 
