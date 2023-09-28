@@ -102,7 +102,7 @@ class GraphqlController extends ControllerBase {
     if ($c = $this->cache->get($key)) {
       $doc = AST::fromArray($c->data);
     } else {
-      $path = DRUPAL_ROOT . "/" . \Drupal::service('extension.list.module')->getPathname('node') . "/" . $definition["schemaFile"];
+      $path = DRUPAL_ROOT . "/" . \Drupal::service('extension.list.module')->getPath($definition["provider"]) . "/" . $definition["schemaFile"];
       $doc = Parser::parse(file_get_contents($path));
       $this->cache->set($key, AST::toArray($doc));
     }
