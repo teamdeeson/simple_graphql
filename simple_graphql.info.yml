@@ -1,7 +1,7 @@
 name: Simple GraphQL
 description: Exposes your Drupal data model through a GraphQL schema.
 package: graphql
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^9 || ^10
 
 type: module
 version: 1.0

@@ -72,6 +72,11 @@ class GraphqlController extends ControllerBase {
     if (stripos($request->getHeaderLine("content-type"), "application/json") !== false) {
       $input = Json::decode($request->getBody()->getContents());
       // $this->persistQueries($input);
+      if (\Drupal::state()->get('simple_graphql_debug') === 'verbose') {
+        \Drupal::logger('simple_graphql')
+          ->info('<pre>' . print_r($input, 1) . '</pre>');
+      }
+      
       $request = $request->withParsedBody($input);
     }
 
@@ -97,7 +102,7 @@ class GraphqlController extends ControllerBase {
     if ($c = $this->cache->get($key)) {
       $doc = AST::fromArray($c->data);
     } else {
-      $path = DRUPAL_ROOT . "/" . drupal_get_path("module", $definition["provider"]) . "/" . $definition["schemaFile"];
+      $path = DRUPAL_ROOT . "/" . \Drupal::service('extension.list.module')->getPath($definition["provider"]) . "/" . $definition["schemaFile"];
       $doc = Parser::parse(file_get_contents($path));
       $this->cache->set($key, AST::toArray($doc));
     }
