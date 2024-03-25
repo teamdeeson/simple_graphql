@@ -41,6 +41,7 @@ class DrupalSchemaDecorator {
       if ($typeDefinitionNode instanceof ObjectTypeDefinitionNode) {
         foreach ($typeDefinitionNode->directives as $d) {
           if ($d->name->value === "entity") {
+            // todo we can also have a "isTypeOf" function which might enable us to remove the resolveEntityType, and the map.
             $typeConfig["resolveField"] = $resolveEntityField;
             break;
           }
@@ -82,11 +83,12 @@ class DrupalSchemaDecorator {
   }
 
   public function entityTypeMap(Schema $schema, string $pluginId) {
+    // TODO is it worth caching? If so, then we should add the missing cache->set
     $entityTypeMapCache = $this->cache->get("simple_graphql.entityTypeMap." . $pluginId);
 
     $entityTypeMap = [];
 
-    if ($entityTypeMapCache->data) {
+    if ($entityTypeMapCache) {
       $entityTypeMap = $entityTypeMapCache->data;
     } else {
       $typeMap = $schema->getTypeMap();
