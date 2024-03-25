@@ -94,7 +94,7 @@ class DrupalSchemaDecorator {
       $typeMap = $schema->getTypeMap();
 
       foreach ($typeMap as $type) {
-        if ($type instanceof ObjectType) {
+        if ($type instanceof ObjectType && $type->astNode) {
           foreach ($type->astNode->directives as $d) {
             if ($d->name->value === "entity") {
               $info = [
